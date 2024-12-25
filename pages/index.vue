@@ -74,6 +74,6 @@ watch(isAnimation, (newIsAnimation, oldIsAnimation) => {
 }
 
 .h-section {
-  height: calc(100vh - var(--menu-height));
+  height: calc(100svh - var(--menu-height));
 }
 </style>
