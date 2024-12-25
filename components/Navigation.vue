@@ -28,8 +28,8 @@
       </div>
 
       <template v-for="element in visibleArray">
-        <component :is="element.tagName" v-bind="{ class: Array.from(element.classList).toString() }"
-          v-html="element.innerHTML" data-nosnippet />
+        <component :is="element.tagName" v-bind="{ class: element.classList.toString() }" v-html="element.innerHTML"
+          data-nosnippet />
       </template>
 
 
@@ -57,8 +57,8 @@
               </MenuButton>
 
               <MenuItem v-for="(element) in asideArray" :key="element.innerHTML">
-              <component is="div" v-bind="{ class: Array.from(element.classList).toString() }"
-                v-html="element.innerHTML" data-nosnippet />
+              <component is="div" v-bind="{ class: element.classList.toString() }" v-html="element.innerHTML"
+                data-nosnippet />
               </MenuItem>
             </MenuItems>
           </Transition>
