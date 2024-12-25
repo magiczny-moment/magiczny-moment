@@ -5,40 +5,41 @@
     <ul
       class="relative flex items-center justify-start w-full gap-8 p-4 overflow-x-auto truncate md:justify-start whitespace-nowrap hide-scroll-bar"
       ref="menuContainer">
-      <li class="inline-block" v-for="(section, index) in visibleArray" :key="section._id"
-        :class="{ 'md:mr-auto': index === 0 }" :ref="(el) => { return navElements.push(el) }">
-        <a :href="'#' + useGenHumanReadableId(section._stem)" class="link ">
-          <span v-if="index === 0" class="md:text-4xl md:font-[eternals-universe]">
-            <span class="hidden md:inline-block">
-              Magiczny Moment
-            </span>
-            <span class="inline-block md:hidden">Początek</span>
-          </span>
-          <span v-else>{{ section.fields.title }}</span>
-        </a>
-      </li>
-    </ul>
-    <!--     <ul
-      class="relative flex items-center justify-start w-full gap-8 overflow-x-auto truncate md:justify-start md:gap-8 whitespace-nowrap hide-scroll-bar">
-      <li class="inline-block" v-for="(section, index) in visibleArray" :key="section._id"
-        :class="{ 'md:mr-auto': index === 0 }">
-        <a :href="'#' + useGenHumanReadableId(section._stem)" class="link ">
-          <span v-if="index === 0" class="md:text-4xl md:font-[eternals-universe]">
-            <span class="hidden md:inline-block">
-              Magiczny Moment
-            </span>
-            <span class="inline-block md:hidden">Początek</span>
-          </span>
 
-          <span v-else>{{ section.fields.title }}</span>
-        </a>
-        <pre>{{ section.value }}</pre>
-      </li>
+
+      <div class="fixed -top-[999999px]" aria-hidden="true">
+        <li class="invisible inline-block" v-for="(section, index) in sections" :key="section._id"
+          :class="{ 'md:mr-auto': index === 0 }" :ref="(el) => { return navElements.push(el) }">
+          <a :href="'#' + useGenHumanReadableId(section._stem)" class="link ">
+            <span v-if="index === 0" class="md:text-4xl md:font-[eternals-universe]">
+              <span class="hidden md:inline-block">
+                Magiczny Moment
+              </span>
+              <span class="inline-block md:hidden">Początek</span>
+            </span>
+            <span v-else>{{ section.fields.title }}</span>
+          </a>
+        </li>
+      </div>
+
+      <template v-for="element in visibleArray">
+        <component :is="element.tagName"
+          v-bind="{ class: Array.from(element.classList).filter(e => e != 'invisible').toString() }"
+          v-html="element.innerHTML" data-nosnippet />
+      </template>
+
+
       <Menu v-if="showDrawer">
-        <li class="absolute top-0 right-0 inline-flex h-full transform -translate-y-1/2 pointer-events-none top-1/2">
+        <!-- <li class="absolute top-0 right-0 inline-flex h-full transform -translate-y-1/2 pointer-events-none top-1/2">
           <div class="h-full w-[70px] bg-gradient-to-l from-gray-900 to-transparent "></div>
-        
+
           <MenuButton class="h-full bg-gray-900 pointer-events-auto link">
+            Więcej
+          </MenuButton>
+        </li> -->
+        <li class="inline-block">
+
+          <MenuButton class="h-full bg-gray-900 pointer-events-auto link" ref="menuButton">
             Więcej
           </MenuButton>
         </li>
@@ -52,19 +53,19 @@
                 <Icon name="icon-park-outline:close" class="inline-block text-xl size-6" />
               </MenuButton>
 
-              <MenuItem v-for="(section, index) in asideArray" :key="section._stem">
-              <li class="inline-block">
-                <a class="link" :href="'#' + useGenHumanReadableId(section._stem)">
-                  <span>{{ section.fields.title }}</span>
-                </a>
-              </li>
+              <MenuItem v-for="(element) in asideArray" :key="element.innerHTML">
+              <component :is="element.tagName"
+                v-bind="{ class: Array.from(element.classList).filter(e => e != 'invisible').toString() }"
+                v-html="element.innerHTML" data-nosnippet />
               </MenuItem>
             </MenuItems>
           </Transition>
         </Teleport>
       </Menu>
-    </ul> -->
 
+
+
+    </ul>
   </nav>
 </template>
 <script setup lang="ts">
@@ -75,7 +76,9 @@ const viewport = useViewport();
 
 const navElements = ref([]);
 const menuContainer = ref(null);
-const priority = usePriorityPlus(menuContainer, navElements);
+const { visibleArray, asideArray } = usePriorityPlus(menuContainer, navElements);
+console.log("🚀 ~ asideArray:", asideArray)
+console.log("🚀 ~ visibleArray:", visibleArray)
 
 const { data: sections } = await useAsyncData('sections', async () => {
   return await queryContent().find()
@@ -83,7 +86,7 @@ const { data: sections } = await useAsyncData('sections', async () => {
 
 const numberOfElements = ['1', '2', '3', '4'];
 
-const visibleArray = ref([]), asideArray = ref([]);
+/* const visibleArray = ref([]), asideArray = ref([]);
 
 watch(viewport.breakpoint, (newBreakpoint, oldBreakpoint) => {
   const index = computed(() => ['mobile', 'mobileMedium', 'mobileWide'].indexOf(newBreakpoint))
@@ -92,10 +95,10 @@ watch(viewport.breakpoint, (newBreakpoint, oldBreakpoint) => {
   visibleArray.value = useSplitArray(sections.value, numberOfVisibleElements).visibleArray.value;
   asideArray.value = useSplitArray(sections.value, numberOfVisibleElements).asideArray.value;
 
-}, { immediate: true })
+}, { immediate: true }) */
 
 const showDrawer = computed(() => {
-  return toRaw(asideArray.value).length > 0
+  return toRaw(asideArray.value)?.length > 0
 })
 
 
