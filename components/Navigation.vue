@@ -3,7 +3,7 @@
     class="fixed bottom-0 z-50 w-full px-4 h-[--menu-height] bg-gray-900 
     bg-gradient-to-l md:bg-transparent md:bg-gradient-to-b from-gray-900/80 to-transparent md:top-0 backdrop-blur-md md:backdrop-blur-0  md:shadow-none shadow-[0px_0px_10px_rgba(0,0,0,0.5)] content-grid">
     <ul
-      class="relative flex items-center justify-start w-full gap-8 p-4 overflow-x-auto truncate md:justify-start whitespace-nowrap hide-scroll-bar"
+      class="relative flex items-center justify-center w-full gap-8 p-4 overflow-x-auto truncate md:justify-start whitespace-nowrap hide-scroll-bar"
       ref="menuContainer">
 
 
@@ -18,6 +18,11 @@
               <span class="inline-block md:hidden">Początek</span>
             </span>
             <span v-else>{{ section.fields.title }}</span>
+          </a>
+        </li>
+        <li class="inline-block" ref="menuButton">
+          <a class="link ">
+            Więcej
           </a>
         </li>
       </div>
@@ -37,8 +42,7 @@
           </MenuButton>
         </li> -->
         <li class="inline-block">
-
-          <MenuButton class="h-full bg-gray-900 pointer-events-auto link" ref="menuButton">
+          <MenuButton class="h-full bg-gray-900 pointer-events-auto link">
             Więcej
           </MenuButton>
         </li>
@@ -53,7 +57,7 @@
               </MenuButton>
 
               <MenuItem v-for="(element) in asideArray" :key="element.innerHTML">
-              <component :is="element.tagName" v-bind="{ class: Array.from(element.classList).toString() }"
+              <component is="div" v-bind="{ class: Array.from(element.classList).toString() }"
                 v-html="element.innerHTML" data-nosnippet />
               </MenuItem>
             </MenuItems>
@@ -67,38 +71,24 @@
   </nav>
 </template>
 <script setup lang="ts">
-import { useGenHumanReadableId, useSplitArray } from '../composable/useGenHumanReadableId'
+import { useGenHumanReadableId } from '../composable/useGenHumanReadableId'
 import usePriorityPlus from '~/composable/usePriorityPlus';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
-const viewport = useViewport();
-
-const navElements = ref([]);
-const menuContainer = ref(null);
-const { visibleArray, asideArray } = usePriorityPlus(menuContainer, navElements);
-console.log("🚀 ~ asideArray:", asideArray)
-console.log("🚀 ~ visibleArray:", visibleArray)
 
 const { data: sections } = await useAsyncData('sections', async () => {
   return await queryContent().find()
 })
 
-const numberOfElements = ['1', '2', '3', '4'];
+const navElements = ref([]);
+const menuContainer = ref(null);
+const menuButton = ref(null);
 
-/* const visibleArray = ref([]), asideArray = ref([]);
+const { visibleArray, asideArray } = usePriorityPlus(menuContainer, navElements, menuButton);
 
-watch(viewport.breakpoint, (newBreakpoint, oldBreakpoint) => {
-  const index = computed(() => ['mobile', 'mobileMedium', 'mobileWide'].indexOf(newBreakpoint))
-  const indexOfNoOfElements = index.value === -1 ? 3 : index;
-  const numberOfVisibleElements = numberOfElements[indexOfNoOfElements.value];
-  visibleArray.value = useSplitArray(sections.value, numberOfVisibleElements).visibleArray.value;
-  asideArray.value = useSplitArray(sections.value, numberOfVisibleElements).asideArray.value;
-
-}, { immediate: true }) */
 
 const showDrawer = computed(() => {
   return toRaw(asideArray.value)?.length > 0
 })
-
 
 </script>
 

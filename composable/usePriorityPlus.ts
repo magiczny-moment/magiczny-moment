@@ -1,39 +1,34 @@
 import { onMounted, ref, type VNode } from 'vue';
 import { debounce, cloneDeep } from 'lodash-es';
-import { useSplitArray } from './useGenHumanReadableId';
 
-const calculateChildrensSpaceTakenAndFindWhereIsSplitPoint = (childrens, menuContainerGap, containerWidth) => {
+const calculateChildrensSpaceTakenAndFindWhereIsSplitPoint = (childrens, menuContainerGap, containerWidth,menuButton) => {
   let splitChildrenIndex
 
   const childrensSpaceTaken = childrens.reduce((acc, child, index) => {
     const childCompStyles = window.getComputedStyle(child);
-    console.log("🚀 ~ childrensSpaceTaken ~ childCompStyles.getPropertyValue('margin-right'):", childCompStyles.getPropertyValue('margin-right'))
     const childMargins = parseInt(childCompStyles.getPropertyValue('margin-right').match(/\d+/)[0]) + parseInt(childCompStyles.getPropertyValue('margin-left').match(/\d+/)[0]);
-    const result = acc + child.offsetWidth + childMargins + menuContainerGap;
+    const menuButtonCompStyles = window.getComputedStyle(menuButton);
+    const menuButtonMargins = parseInt(menuButtonCompStyles.getPropertyValue('margin-right').match(/\d+/)[0]) + parseInt(menuButtonCompStyles.getPropertyValue('margin-left').match(/\d+/)[0]);
+    const result = acc + child.offsetWidth + childMargins + (index == 0 ? 0 : menuContainerGap) + (index == 0 ? menuButton.offsetWidth + menuButtonMargins : 0);
 
     if (acc < containerWidth && result > containerWidth) {
       splitChildrenIndex = index;
     }
+    else if (acc < containerWidth && result < containerWidth) {
+      splitChildrenIndex = childrens.length;
+    }
     return result;
-  }, 0) - menuContainerGap;
+  }, 0);
   const result = [childrensSpaceTaken, splitChildrenIndex]
   return result
 }
 
-export default (menuContainer: VNode, childrensInput: VNode[]) => {
-  const widthForDispalingChildrens = ref(0);
+export default (menuContainer: VNode, childrensInput: VNode[] , menuButton: VNode) => {
   const visibleArray = ref(), asideArray = ref();
   onMounted(() => {
+    const widthForDispalingChildrens = ref(0);
     const childrens = cloneDeep(toRaw(childrensInput.value));
-/*     const childrens = []
-    childrensInput.value.forEach(element => {
-      childrens.push(element.cloneNode())
-    });
-    childrens.forEach(element => {
-      element.classList.remove('hidden');
-    }); */
-
-
+    
     const menuContainerCompStyles = window.getComputedStyle(menuContainer.value);
     const menuContainerPaddingHorizontal = Number(menuContainerCompStyles.getPropertyValue('padding-left').match(/\d+/)[0]) + Number(menuContainerCompStyles.getPropertyValue('padding-right').match(/\d+/)[0]);
     const menuContainerGap = Number(menuContainerCompStyles.getPropertyValue('row-gap').match(/\d+/)[0]);
@@ -41,13 +36,11 @@ export default (menuContainer: VNode, childrensInput: VNode[]) => {
     widthForDispalingChildrens.value = menuContainer.value.offsetWidth - menuContainerPaddingHorizontal;
 
 
-    const [childrensSpaceTaken, splitChildrenIndex] = calculateChildrensSpaceTakenAndFindWhereIsSplitPoint(childrens, menuContainerGap, widthForDispalingChildrens.value)
+    const [_, splitChildrenIndex] = calculateChildrensSpaceTakenAndFindWhereIsSplitPoint(childrens, menuContainerGap, widthForDispalingChildrens.value, menuButton.value);
 
 
     const prepareVisibleArray = childrens.slice(0, splitChildrenIndex);
-    /* prepareVisibleArray.forEach(element => {
-      element.classList.remove('hidden');
-    }); */
+
     visibleArray.value = prepareVisibleArray
     asideArray.value = childrens.slice(splitChildrenIndex);
 
@@ -55,7 +48,7 @@ export default (menuContainer: VNode, childrensInput: VNode[]) => {
     window.addEventListener('resize', debounce(() => {
       widthForDispalingChildrens.value = menuContainer.value.offsetWidth - menuContainerPaddingHorizontal;
 
-      const [childrensSpaceTaken, splitChildrenIndex] = calculateChildrensSpaceTakenAndFindWhereIsSplitPoint(childrens, menuContainerGap, widthForDispalingChildrens.value)
+      const [_, splitChildrenIndex] = calculateChildrensSpaceTakenAndFindWhereIsSplitPoint(childrens, menuContainerGap, widthForDispalingChildrens.value, menuButton.value)
 
       visibleArray.value = childrens.slice(0, splitChildrenIndex);
       asideArray.value = childrens.slice(splitChildrenIndex);
