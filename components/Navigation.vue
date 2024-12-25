@@ -8,7 +8,7 @@
 
 
       <div class="fixed -top-[999999px]" aria-hidden="true">
-        <li class="invisible inline-block" v-for="(section, index) in sections" :key="section._id"
+        <li class="inline-block" v-for="(section, index) in sections" :key="section._id"
           :class="{ 'md:mr-auto': index === 0 }" :ref="(el) => { return navElements.push(el) }">
           <a :href="'#' + useGenHumanReadableId(section._stem)" class="link ">
             <span v-if="index === 0" class="md:text-4xl md:font-[eternals-universe]">
@@ -23,8 +23,7 @@
       </div>
 
       <template v-for="element in visibleArray">
-        <component :is="element.tagName"
-          v-bind="{ class: Array.from(element.classList).filter(e => e != 'invisible').toString() }"
+        <component :is="element.tagName" v-bind="{ class: Array.from(element.classList).toString() }"
           v-html="element.innerHTML" data-nosnippet />
       </template>
 
@@ -54,8 +53,7 @@
               </MenuButton>
 
               <MenuItem v-for="(element) in asideArray" :key="element.innerHTML">
-              <component :is="element.tagName"
-                v-bind="{ class: Array.from(element.classList).filter(e => e != 'invisible').toString() }"
+              <component :is="element.tagName" v-bind="{ class: Array.from(element.classList).toString() }"
                 v-html="element.innerHTML" data-nosnippet />
               </MenuItem>
             </MenuItems>
