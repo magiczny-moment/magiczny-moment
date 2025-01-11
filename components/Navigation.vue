@@ -34,15 +34,8 @@
 
 
       <Menu v-if="showDrawer">
-        <!-- <li class="absolute top-0 right-0 inline-flex h-full transform -translate-y-1/2 pointer-events-none top-1/2">
-          <div class="h-full w-[70px] bg-gradient-to-l from-gray-900 to-transparent "></div>
-
-          <MenuButton class="h-full bg-gray-900 pointer-events-auto link">
-            Więcej
-          </MenuButton>
-        </li> -->
         <li class="inline-block">
-          <MenuButton class="h-full bg-gray-900 pointer-events-auto link">
+          <MenuButton class="h-full pointer-events-auto link">
             Więcej
           </MenuButton>
         </li>

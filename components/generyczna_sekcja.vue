@@ -24,11 +24,6 @@
                   class="inline-block text-xl size-6" />
               </button>
             </Teleport>
-            <!-- button v-if="isAnimation"
-              class="flex items-center p-3 ml-4 font-semibold text-white rounded-full bg-accent hover:bg-accent-600"
-              @click="$emit('preview-clicked')">
-              <Icon name="icon-park-outline:preview-open" class="inline-block text-xl size-6" />
-              </button> -->
             <a href="#oferta"
               class="px-6 py-3 ml-4 font-semibold text-white rounded-full bg-accent hover:bg-accent-600">
               Zamów
