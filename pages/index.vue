@@ -2,7 +2,7 @@
   <main class="content-grid">
     <Navigation v-if="!isAnimationAnywhere" />
     <template v-for="(section, index) in sections" :key="section._id">
-      <template v-if="section._stem === '_1.witamy'">
+      <template v-if="section._stem.indexOf('witamy') > -1">
         <Witamy class="full-width" :id="useGenHumanReadableId(section._stem)" v-bind="section.fields"
           :link="useGenHumanReadableId(sections[index + 1]._stem)" />
       </template>
