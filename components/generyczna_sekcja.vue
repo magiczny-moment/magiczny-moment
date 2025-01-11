@@ -1,11 +1,11 @@
 <template>
-  <section class="relative isolate overflow-hidden bg-gray-800 bg-cover h-section md:!h-screen"
+  <section class="relative isolate overflow-y-auto bg-gray-800 bg-cover h-section md:!h-screen"
     :class="{ '!h-screen': isAnimation }">
     <img :src="image"
-      class="absolute top-0 left-0 z-10 object-cover object-left w-full h-full full-width md:animate-none"
+      class="absolute top-0 left-0 z-10 object-cover object-left min-w-full min-h-full full-width md:animate-none"
       :class="{ 'animate-smooth-slide': isAnimation }" />
     <!-- Centered Text Content -->
-    <div class="z-20 flex flex-row items-center justify-center h-full px-4 text-center text-white "
+    <div class="z-20 flex flex-row items-center justify-center h-full p-4 text-center text-white "
       :class="{ 'hidden': isAnimation }">
 
       <div
@@ -15,19 +15,23 @@
         </h2>
         <span>{{ content }}</span>
 
-        <div class="flex items-center justify-end w-full mt-6">
+        <div class="flex flex-col items-end justify-end w-full gap-4 mt-6 md:items-center md:flex-row">
           <span class="text-xl">{{ price }}</span>
-          <Teleport to="#animation-close" :disabled="!isAnimation">
-            <button
-              class="flex items-center p-3 ml-4 font-semibold text-white rounded-full bg-accent hover:bg-accent-600"
-              @click="$emit('preview-clicked')">
-              <Icon :name="!isAnimation ? 'icon-park-outline:preview-open' : 'icon-park-outline:preview-close-one'"
-                class="inline-block text-xl size-6" />
-            </button>
-          </Teleport>
-          <a href="#oferta" class="px-6 py-3 ml-4 font-semibold text-white rounded-full bg-accent hover:bg-accent-600">
-            Zamów
-          </a>
+          <div class="inline-flex">
+            <Teleport to="#animation-close" :disabled="!isAnimation">
+              <button
+                class="flex items-center p-3 ml-4 font-semibold text-white rounded-full bg-accent hover:bg-accent-600"
+                @click="$emit('preview-clicked')">
+                <Icon :name="!isAnimation ? 'icon-park-outline:preview-open' : 'icon-park-outline:preview-close-one'"
+                  class="inline-block text-xl size-6" />
+              </button>
+            </Teleport>
+            <a href="#oferta"
+              class="px-6 py-3 ml-4 font-semibold text-white rounded-full bg-accent hover:bg-accent-600">
+              Zamów
+            </a>
+          </div>
+
         </div>
       </div>
 
