@@ -1,11 +1,11 @@
 <template>
-  <section class="relative isolate overflow-y-auto bg-gray-800 bg-cover h-section md:!h-screen"
+  <section class="relative overflow-y-auto bg-gray-800 bg-cover isolate h-section"
     :class="{ '!h-screen': isAnimation }">
     <img :src="image"
-      class="absolute top-0 left-0 z-10 object-cover object-left min-w-full min-h-full full-width md:animate-none"
+      class="absolute top-0 left-0 z-10 object-cover object-left w-full h-full full-width md:animate-none"
       :class="{ 'animate-smooth-slide': isAnimation }" />
     <!-- Centered Text Content -->
-    <div class="z-20 flex flex-row items-center justify-center h-full p-4 text-center text-white "
+    <div class="z-20 flex flex-row items-center justify-center h-full p-4 text-center text-white md:p-0 "
       :class="{ 'hidden': isAnimation }">
 
       <div

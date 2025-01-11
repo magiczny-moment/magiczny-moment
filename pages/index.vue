@@ -69,10 +69,6 @@ watch(isAnimation, (newIsAnimation, oldIsAnimation) => {
   grid-template-columns: inherit;
 }
 
-.flow>*+* {
-  margin-top: var(--flow-spacing, 1em);
-}
-
 .h-section {
   height: 100%;
   min-height: calc(100vh - var(--menu-height));
