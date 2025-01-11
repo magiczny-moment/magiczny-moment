@@ -1,6 +1,7 @@
 <template>
   <figure class="relative h-section md:!h-screen overflow-hidden bg-gray-800 bg-cover">
-    <video autoplay muted loop class="absolute top-0 left-0 object-cover object-center w-screen h-screen full-width">
+    <video autoplay muted loop
+      class="absolute top-0 left-0 object-cover object-center w-screen h-screen md:object-t30 full-width">
       <source src="/public/filmik_glowna.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
