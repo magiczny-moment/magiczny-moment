@@ -1,5 +1,5 @@
 <template>
-  <section class="relative overflow-y-auto bg-gray-800 bg-cover isolate h-section"
+  <section class="relative overflow-y-auto bg-gray-800 bg-cover isolate h-section md:!h-screen"
     :class="{ '!h-screen': isAnimation }">
     <img :src="image"
       class="absolute top-0 left-0 z-10 object-cover object-left w-full h-full full-width md:animate-none"
