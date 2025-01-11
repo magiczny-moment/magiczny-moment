@@ -41,5 +41,12 @@ export default {
       )
     }),
     require("tailwindcss-animate"),
+    plugin(function ({ addComponents }) {
+      addComponents({
+        '.object-t30': {
+          'object-position': 'center 30%',
+        },
+      });
+    }),
   ],
 }
