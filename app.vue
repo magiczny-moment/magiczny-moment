@@ -14,6 +14,7 @@ html {
 :root {
   --color-accent: #ceb67a;
   --menu-height: 80px;
+  --section-height: calc(100svh - var(--menu-height));
 }
 
 .content-grid {
@@ -43,5 +44,17 @@ html {
 
   display: grid;
   grid-template-columns: inherit;
+}
+
+@media screen(md) {
+  .h-section {
+    min-height: 100vh !important;
+  }
+}
+
+.h-section {
+  height: 100%;
+  min-height: calc(100vh - var(--menu-height));
+  min-height: var(--section-height);
 }
 </style>

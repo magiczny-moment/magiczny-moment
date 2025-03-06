@@ -64,7 +64,7 @@
   </nav>
 </template>
 <script setup lang="ts">
-import { useGenHumanReadableId } from '../composable/useGenHumanReadableId'
+import { useGenHumanReadableId } from '~/composable/useGenHumanReadableId'
 import usePriorityPlus from '~/composable/usePriorityPlus';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 
