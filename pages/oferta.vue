@@ -7,9 +7,7 @@
         <div class="overflow-hidden" ref="emblaRef">
           <div
             class="grid auto-cols-[80%] md:auto-cols-[calc(50%-1rem)] h-[calc(var(--section-height)*0.7)] grid-flow-col gap-4">
-            <Card />
-            <Card />
-            <Card />
+            <Card v-for="offer in offers" :image="offer.fields.image" />
           </div>
         </div>
       </div>
@@ -22,10 +20,9 @@ import emblaCarouselVue from 'embla-carousel-vue'
 
 const [emblaRef] = emblaCarouselVue()
 
-const { data: sections } = await useAsyncData('sections', async () => {
-  return await queryContent().find()
+const { data: offers } = await useAsyncData('offers', async () => {
+  return await queryContent('offers').find()
 })
-
-const cards = ref([]);
+console.log("🚀 ~ const{data:sections}=awaituseAsyncData ~ sections:", offers.value)
 
 </script>

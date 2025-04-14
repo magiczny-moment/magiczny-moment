@@ -1,8 +1,9 @@
 <template>
-  <div class="card">
+  <figure class="card">
     <img class="object-cover w-full h-full object-t30" :src="image" />
+    <h4></h4>
     <div class="shine"></div>
-  </div>
+  </figure>
 </template>
 
 <script setup lang="ts">
@@ -26,6 +27,6 @@ const { title, content, image } = toRefs(props)
 }
 
 .card {
-  @apply overflow-hidden relative select-none bg-gradient-to-br from-[#424249] via-gray-800 to-gray-800 rounded-xl border border-accent;
+  @apply overflow-hidden relative select-none bg-gradient-to-br from-[#424249] via-gray-800 to-gray-800 rounded-xl border-2 border-accent;
 }
 </style>
