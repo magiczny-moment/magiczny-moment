@@ -10,18 +10,18 @@
       <div class="fixed -top-[999999px]" aria-hidden="true">
         <li class="inline-block" v-for="(section, index) in sections" :key="section._id"
           :class="{ 'md:mr-auto': index === 0 }" :ref="(el) => { return navElements.push(el) }">
-          <a :href="'#' + useGenHumanReadableId(section._stem)" class="link ">
+          <a :href="'#' + section.id" class="link ">
             <span v-if="index === 0" class="md:text-4xl md:font-[eternals-universe]">
               <span class="hidden md:inline-block">
                 Magiczny Moment
               </span>
               <span class="inline-block md:hidden">Początek</span>
             </span>
-            <span v-else>{{ section.fields.title }}</span>
+            <span v-else>{{ section.title }}</span>
           </a>
         </li>
         <li class="inline-block" ref="menuButton">
-          <a class="link ">
+          <a class="link">
             Więcej
           </a>
         </li>
@@ -68,16 +68,21 @@ import { useGenHumanReadableId } from '~/composable/useGenHumanReadableId'
 import usePriorityPlus from '~/composable/usePriorityPlus';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 
-const { data: sections } = await useAsyncData('sections', async () => {
+const props = defineProps({
+  sections: {
+    type: Array,
+    default: () => []
+  }
+});
+/* const { data: sections } = await useAsyncData('sections', async () => {
   return await queryContent().find()
 })
-
+ */
 const navElements = ref([]);
 const menuContainer = ref(null);
 const menuButton = ref(null);
 
 const { visibleArray, asideArray } = usePriorityPlus(menuContainer, navElements, menuButton);
-
 
 const showDrawer = computed(() => {
   return toRaw(asideArray.value)?.length > 0

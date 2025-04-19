@@ -30,7 +30,3 @@ defineProps({
   link: String
 })
 </script>
-
-<style scoped>
-/* Additional styles, if needed */
-</style>
