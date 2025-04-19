@@ -17,6 +17,12 @@ export default defineNuxtConfig({
   icon: {
     provider: 'iconify',
     serverBundle: false,
+    customCollections: [
+      {
+        prefix: 'my-icon',
+        dir: './assets/icons'
+      },
+    ],
   },
   compatibilityDate: '2024-11-10'
 })

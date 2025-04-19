@@ -3,7 +3,9 @@
     <Navigation :sections="sections" />
     <Witamy class="full-width" id="witamy" v-bind="witamy.fields" link="oferta" />
     <Offer :offers="offers" id="oferta" />
-    <Contact id="kontakt" class="full-width" />
+    <Contact id="kontakt" class="full-width" :content="contact">
+      <ContentRenderer class="flex flex-col gap-4" :value="contact" />
+    </Contact>
   </main>
 </template>
 
@@ -20,5 +22,8 @@ const { data: offers } = await useAsyncData('offers', async () => {
 })
 const { data: witamy } = await useAsyncData('witamy', async () => {
   return await queryContent().where({ title: { $contains: 'Witamy' } }).findOne();
+});
+const { data: contact } = await useAsyncData('contact', async () => {
+  return await queryContent().where({ title: { $contains: 'Kontakt' } }).findOne();
 });
 </script>
