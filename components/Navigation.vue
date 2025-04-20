@@ -7,7 +7,7 @@
       ref="menuContainer">
       <li class="inline-block" v-for="(section, index) in visibleArray" :key="section.id"
         :class="{ 'md:mr-auto': index === 0 }">
-        <a :href="'#' + section.id" class="link" :class="{ 'link-active': isActive(section.id) && index !== 0 }">
+        <a :href="'#' + section.id" class="link" :class="{ 'link-active': isActive(section.id) }">
           <span v-if="index === 0" class="md:text-4xl md:font-[eternals-universe]">
             <span class="hidden md:inline-block">
               Magiczny Moment
@@ -97,7 +97,7 @@ const isActive = (section) => {
 }
 
 .link-active {
-  @apply border-b-2 border-accent;
+  @apply border-b-2;
 
 }
 

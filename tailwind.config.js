@@ -26,7 +26,7 @@ export default {
           'from': { ['object-position']: '0% 0%' },
           'to': { ['object-position']: '100% 0%' },
         }
-      }
+      },
     },
   },
   plugins: [
