@@ -1,9 +1,8 @@
 <template>
   <div>
-    <div class="fixed z-[51]" id="popover"></div>
-    <div class="fixed z-[52] bottom-8 right-8" id="animation-close"></div>
     <NuxtPage />
-
+    <div class="fixed z-[52] bottom-8 right-8" id="animation-close"></div>
+    <div class="fixed z-[51]" id="popover"></div>
   </div>
 </template>
 <style lang="css">

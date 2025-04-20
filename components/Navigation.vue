@@ -7,31 +7,19 @@
       ref="menuContainer">
 
 
-      <div class="fixed -top-[999999px]" aria-hidden="true">
-        <li class="inline-block" v-for="(section, index) in sections" :key="section._id"
-          :class="{ 'md:mr-auto': index === 0 }" :ref="(el) => { return navElements.push(el) }">
-          <NuxtLink :to="'#' + section.id" class="link" :class="{ 'link-active': isActive(section.id) }">
-            <span v-if="index === 0" class="md:text-4xl md:font-[eternals-universe]">
-              <span class="hidden md:inline-block">
-                Magiczny Moment
-              </span>
-              <span class="inline-block md:hidden">Początek</span>
+
+      <li class="inline-block" v-for="(section, index) in visibleArray" :key="section.id"
+        :class="{ 'md:mr-auto': index === 0 }">
+        <NuxtLink :to="'#' + section.id" class="link" :class="{ 'link-active': isActive(section.id) && index !== 0 }">
+          <span v-if="index === 0" class="md:text-4xl md:font-[eternals-universe]">
+            <span class="hidden md:inline-block">
+              Magiczny Moment
             </span>
-            <span v-else>{{ section.title }}</span>
-          </NuxtLink>
-        </li>
-        <li class="inline-block" ref="menuButton">
-          <a class="link">
-            Więcej
-          </a>
-        </li>
-      </div>
-
-      <template v-for="element in visibleArray">
-        <component :is="element.tagName" v-bind="{ class: element.classList.toString() }" v-html="element.innerHTML"
-          data-nosnippet />
-      </template>
-
+            <span class="inline-block md:hidden">Początek</span>
+          </span>
+          <span v-else>{{ section.title }}</span>
+        </NuxtLink>
+      </li>
 
       <Menu v-if="showDrawer">
         <li class="inline-block">
@@ -50,8 +38,9 @@
               </MenuButton>
 
               <MenuItem v-for="(element) in asideArray" :key="element.innerHTML">
-              <component is="div" v-bind="{ class: element.classList.toString() }" v-html="element.innerHTML"
-                data-nosnippet />
+              <NuxtLink :to="'#' + element.id" class="self-start link" :class="{ 'link-active': isActive(element.id) }">
+                {{ element.title }}
+              </NuxtLink>
               </MenuItem>
             </MenuItems>
           </Transition>
@@ -64,28 +53,45 @@
   </nav>
 </template>
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
-import { useGenHumanReadableId } from '~/composable/useGenHumanReadableId'
-import usePriorityPlus from '~/composable/usePriorityPlus';
+import { useRoute, useNuxtApp } from '#app';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+
+
+const { $viewport } = useNuxtApp()
+
 
 const props = defineProps({
   sections: {
     type: Array,
-    default: () => []
+    required: true
   }
 });
-
+const { sections } = toRefs(props)
 
 const route = useRoute()
-const navElements = ref([]);
 const menuContainer = ref(null);
-const menuButton = ref(null);
 
-const { visibleArray, asideArray } = usePriorityPlus(menuContainer, navElements, menuButton);
+const visibleArray = ref([]);
+const asideArray = ref([]);
+
+watch($viewport.breakpoint, (newBreakpoint) => {
+  let pointOfSplit
+  if (['desktopWide', 'desktopMedium', 'desktop', 'tablet'].includes(newBreakpoint)) {
+    pointOfSplit = sections.value.length
+  } else if (['mobileWide', 'mobileMedium'].includes(newBreakpoint)) {
+    pointOfSplit = 2
+  }
+  else {
+    pointOfSplit = 1
+  }
+
+  visibleArray.value = sections.value.slice(0, pointOfSplit)
+  asideArray.value = sections.value.slice(pointOfSplit, sections.value.length)
+}, { immediate: true })
+
 
 const showDrawer = computed(() => {
-  return toRaw(asideArray.value)?.length > 0
+  return asideArray.value.length > 0
 })
 
 const isActive = (section) => {
