@@ -1,4 +1,4 @@
-import { onMounted, ref, type VNode } from 'vue';
+import { onMounted, onUpdated, ref, watch, type VNode } from 'vue';
 import { debounce, cloneDeep } from 'lodash-es';
 
 const calculateChildrensSpaceTakenAndFindWhereIsSplitPoint = (childrens, menuContainerGap, containerWidth,menuButton) => {
@@ -25,7 +25,7 @@ const calculateChildrensSpaceTakenAndFindWhereIsSplitPoint = (childrens, menuCon
 
 export default (menuContainer: VNode, childrensInput: VNode[] , menuButton: VNode) => {
   const visibleArray = ref(), asideArray = ref();
-  onMounted(() => {
+  const calculateVisibleAndHidden = () => {
     const widthForDispalingChildrens = ref(0);
     const childrens = cloneDeep(toRaw(childrensInput.value));
     
@@ -55,6 +55,7 @@ export default (menuContainer: VNode, childrensInput: VNode[] , menuButton: VNod
 
     }, 50))
 
-  })
+  }
+  onMounted(calculateVisibleAndHidden)
   return { visibleArray, asideArray }
 }

@@ -1,6 +1,6 @@
 <template>
   <main class="content-grid">
-    <Navigation v-if="!isAnimationAnywhere" :sections="sections" />
+    <Navigation v-if="!isAnimationAnywhere" :sections="dataForMenu" />
     <template v-for="(section, index) in sections" :key="section._id">
       <template v-if="section._stem.indexOf('witamy') > -1">
         <Witamy class="full-width" :id="useGenHumanReadableId(section._stem)" v-bind="section.fields"
@@ -13,7 +13,6 @@
           @preview-clicked="previewClicked(index)" />
       </template>
 
-      <!-- <ContentRendererMarkdown :value="section.body" /> -->
     </template>
   </main>
 </template>
@@ -44,7 +43,3 @@ watch(isAnimation, (newIsAnimation, oldIsAnimation) => {
   isAnimationAnywhere.value = newIsAnimation.some((elem) => elem)
 })
 </script>
-
-<style lang="css">
-.cos {}
-</style>

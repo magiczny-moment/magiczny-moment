@@ -10,7 +10,7 @@
       <div class="fixed -top-[999999px]" aria-hidden="true">
         <li class="inline-block" v-for="(section, index) in sections" :key="section._id"
           :class="{ 'md:mr-auto': index === 0 }" :ref="(el) => { return navElements.push(el) }">
-          <a :href="'#' + section.id" class="link ">
+          <NuxtLink :to="'#' + section.id" class="link" :class="{ 'link-active': isActive(section.id) }">
             <span v-if="index === 0" class="md:text-4xl md:font-[eternals-universe]">
               <span class="hidden md:inline-block">
                 Magiczny Moment
@@ -18,7 +18,7 @@
               <span class="inline-block md:hidden">Początek</span>
             </span>
             <span v-else>{{ section.title }}</span>
-          </a>
+          </NuxtLink>
         </li>
         <li class="inline-block" ref="menuButton">
           <a class="link">
@@ -64,6 +64,7 @@
   </nav>
 </template>
 <script setup lang="ts">
+import { useRoute } from 'vue-router';
 import { useGenHumanReadableId } from '~/composable/useGenHumanReadableId'
 import usePriorityPlus from '~/composable/usePriorityPlus';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
@@ -74,10 +75,9 @@ const props = defineProps({
     default: () => []
   }
 });
-/* const { data: sections } = await useAsyncData('sections', async () => {
-  return await queryContent().find()
-})
- */
+
+
+const route = useRoute()
 const navElements = ref([]);
 const menuContainer = ref(null);
 const menuButton = ref(null);
@@ -88,11 +88,20 @@ const showDrawer = computed(() => {
   return toRaw(asideArray.value)?.length > 0
 })
 
+const isActive = (section) => {
+  return route.hash === `#${section}`
+}
+
 </script>
 
 <style scoped>
 .link {
   @apply inline-block font-bold cursor-pointer text-accent hover:text-accent-600 text-shadow-sm shadow-gray-500;
+}
+
+.link-active {
+  @apply border-b-2 border-accent;
+
 }
 
 .shadow-drawer {

@@ -20,9 +20,3 @@
     </div>
   </section>
 </template>
-
-<script setup lang="ts">
-defineProps({
-  content: String
-})
-</script>
