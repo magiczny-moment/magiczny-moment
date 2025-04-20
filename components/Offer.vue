@@ -4,16 +4,17 @@
     <div class="relative">
       <div class="overflow-hidden" ref="emblaRef">
         <div
-          class="grid auto-cols-[80%] md:auto-cols-[calc(50%-2rem)] h-[calc(var(--section-height)*0.7)] grid-flow-col gap-16">
+          class="grid auto-cols-[70%] md:auto-cols-[calc(50%-2rem)] h-[calc(var(--section-height)*0.7)] grid-flow-col gap-4 md:gap-16">
           <template v-for="(offer, index) in offers">
-            <Card :image="offer.fields.image" :class="{ 'mr-16': index == offers.length - 1 }" />
+            <Card :image="offer.fields.image" :title="offer.fields.title"
+              :class="{ 'mr-4 md:mr-16': index == offers.length - 1 }" />
           </template>
         </div>
       </div>
-      <button class="absolute transform -translate-y-1/2 top-1/2 left-[-5ch]" @click="scrollPrev">
+      <button class="hidden md:block absolute transform -translate-y-1/2 top-1/2 left-[-5ch]" @click="scrollPrev">
         <Icon name="icon-park-outline:arrow-left" />
       </button>
-      <button class="absolute transform -translate-y-1/2 top-1/2 right-[-5ch]" @click="scrollNext">
+      <button class="hidden md:block absolute transform -translate-y-1/2 top-1/2 right-[-5ch]" @click="scrollNext">
         <Icon name="icon-park-outline:arrow-right" />
       </button>
     </div>

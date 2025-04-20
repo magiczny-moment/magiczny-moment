@@ -97,7 +97,7 @@ const isActive = (section) => {
 }
 
 .link-active {
-  @apply border-b-2;
+  @apply border-b-2 border-accent;
 
 }
 

@@ -2,13 +2,20 @@
   <figure class="card">
     <img class="object-cover w-full h-full object-t30" :src="image" />
     <div
-      class="absolute bottom-0 flex flex-col items-start justify-end w-full gap-2 p-4 h-2/6 bg-gradient-to-t from-gray-900/90 to-transparent">
-      <h2 class="text-2xl">{{ title || 'Coś' }}</h2>
-      <div class="">{{ content || ` Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit amet laborum rerum,
+      class="absolute bottom-0 flex flex-row items-start justify-center w-full gap-2 p-4 md:justify-end md:flex-col h-fit md:h-2/6 bg-gray-900/80 md:bg-gradient-to-t md:from-gray-900/90 md:to-transparent">
+      <h2 class="text-2xl font-bold">{{ title || 'Coś' }}</h2>
+      <div class="hidden md:inline-block">{{ content || ` Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit
+        amet
+        laborum rerum,
         dolores alias, cupiditate non provident inventore, id quis repellendus ? Error praesentium, fugiat dolorum omnis
         maiores facere fuga possimus?` }}
 
       </div>
+      <NuxtLink :to="link"
+        class="inline-flex items-center self-end gap-2 px-4 py-2 text-gray-900 rounded-full cursor-pointer w-content bg-accent">
+        <span class="hidden md:block">Zobacz</span>
+        <Icon class="inline-block" name="icon-park-outline:arrow-right" />
+      </NuxtLink>
     </div>
   </figure>
 </template>
@@ -22,10 +29,11 @@ const props = defineProps({
   image: {
     type: String,
     default: 'https://place-hold.it/500x500'
-  }
+  },
+  link: String
 })
 
-const { title, content, image } = toRefs(props)
+const { title, content, image, link } = toRefs(props)
 </script>
 
 <style scoped>
