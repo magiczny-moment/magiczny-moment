@@ -3,14 +3,11 @@
     class="fixed bottom-0 z-50 w-full px-4 h-[--menu-height] bg-gray-900 
     bg-gradient-to-l md:bg-transparent md:bg-gradient-to-b from-gray-900/80 to-transparent md:top-0 backdrop-blur-md md:backdrop-blur-0  md:shadow-none shadow-[0px_0px_10px_rgba(0,0,0,0.5)] content-grid">
     <ul
-      class="relative flex items-center justify-center w-full gap-8 p-4 overflow-x-auto truncate md:justify-start whitespace-nowrap hide-scroll-bar"
+      class="flex items-center justify-center w-full gap-8 p-4 overflow-x-auto truncate md:justify-start whitespace-nowrap hide-scroll-bar"
       ref="menuContainer">
-
-
-
       <li class="inline-block" v-for="(section, index) in visibleArray" :key="section.id"
         :class="{ 'md:mr-auto': index === 0 }">
-        <NuxtLink :to="'#' + section.id" class="link" :class="{ 'link-active': isActive(section.id) && index !== 0 }">
+        <a :href="'#' + section.id" class="link" :class="{ 'link-active': isActive(section.id) && index !== 0 }">
           <span v-if="index === 0" class="md:text-4xl md:font-[eternals-universe]">
             <span class="hidden md:inline-block">
               Magiczny Moment
@@ -18,46 +15,40 @@
             <span class="inline-block md:hidden">Początek</span>
           </span>
           <span v-else>{{ section.title }}</span>
-        </NuxtLink>
+        </a>
       </li>
-
-      <Menu v-if="showDrawer">
-        <li class="inline-block">
-          <MenuButton class="h-full pointer-events-auto link">
-            Więcej
-          </MenuButton>
-        </li>
-        <Teleport to="#popover">
-          <Transition enter-active-class="transition-transform duration-500"
-            leave-active-class="transition-transform duration-500" enter-from-class="translate-x-full"
-            enter-to-class="translate-x-0" leave-from-class="translate-x-0" leave-to-class="translate-x-full">
-            <MenuItems
-              class="fixed z-[51] gap-8 right-0 top-0 flex flex-col flex-wrap whitespace-pre-line w-[300px] h-screen bg-gradient-to-b bg-gradient-to-b from-gray-900/80 to-gray-600/80 backdrop-blur-md p-8 shadow-drawer">
-              <MenuButton class="inline link">
-                <Icon name="icon-park-outline:close" class="inline-block text-xl size-6" />
-              </MenuButton>
-
-              <MenuItem v-for="(element) in asideArray" :key="element.innerHTML">
-              <NuxtLink :to="'#' + element.id" class="self-start link" :class="{ 'link-active': isActive(element.id) }">
-                {{ element.title }}
-              </NuxtLink>
-              </MenuItem>
-            </MenuItems>
-          </Transition>
-        </Teleport>
-      </Menu>
-
-
-
+      <li v-if="showDrawer" class="inline-block">
+        <span class="h-full pointer-events-auto link" @click="drawerVisiblity = !drawerVisiblity">
+          Więcej
+        </span>
+      </li>
     </ul>
   </nav>
+
+  <template v-if="showDrawer">
+    <Transition enter-active-class="transition-transform duration-500"
+      leave-active-class="transition-transform duration-500" enter-from-class="translate-x-full"
+      enter-to-class="translate-x-0" leave-from-class="translate-x-0" leave-to-class="translate-x-full">
+      <div v-if="drawerVisiblity"
+        class="fixed z-[51] gap-8 right-0 top-0 flex flex-col justify-end flex-wrap whitespace-pre-line w-[300px] h-screen bg-gradient-to-b bg-gradient-to-b from-gray-900/80 to-gray-600/80 backdrop-blur-md p-8 shadow-drawer">
+        <div v-for="(element) in asideArray" :key="element.id">
+          <a :href="'#' + element.id" class="self-start link" :class="{ 'link-active': isActive(element.id) }"
+            @click="drawerVisiblity = !drawerVisiblity">
+            {{ element.title }}
+          </a>
+        </div>
+        <div class="self-center inline link" @click="drawerVisiblity = !drawerVisiblity">
+          <Icon name="icon-park-outline:close" class="inline-block text-xl size-6" />
+        </div>
+      </div>
+    </Transition>
+  </template>
 </template>
 <script setup lang="ts">
 import { useRoute, useNuxtApp } from '#app';
-import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
-
 
 const { $viewport } = useNuxtApp()
+const route = useRoute();
 
 
 const props = defineProps({
@@ -66,9 +57,9 @@ const props = defineProps({
     required: true
   }
 });
-const { sections } = toRefs(props)
+const { sections } = toRefs(props);
 
-const route = useRoute()
+const drawerVisiblity = ref(false);
 const menuContainer = ref(null);
 
 const visibleArray = ref([]);

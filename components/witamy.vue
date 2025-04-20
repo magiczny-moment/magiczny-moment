@@ -9,7 +9,7 @@
 
 
     <!-- Centered Text Content -->
-    <div class="relative z-10 flex items-center justify-center h-full px-4 text-center md:pb-0">
+    <div class="relative z-10 flex items-center justify-center h-full px-4 text-center md:pb-0 ">
       <div>
         <img src="/public/LOGO.png" alt="Logo" class="size-[400px] mx-auto mb-4 object-contain" />
         <div v-if="content?.length > 0" class="max-w-xl mx-auto mb-8 text-lg text-white md:text-xl">
