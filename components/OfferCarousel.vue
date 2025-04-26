@@ -6,7 +6,7 @@
         <div
           class="grid auto-cols-[70%] md:auto-cols-[calc(50%-2rem)] h-[calc(var(--section-height)*0.7)] grid-flow-col gap-4 md:gap-16">
           <template v-for="(offer, index) in offers">
-            <Card :image="offer.fields.image" :title="offer.fields.title"
+            <Card :image="offer.fields.image" :title="offer.fields.title" :content="offer.fields.content"
               :class="{ 'mr-4 md:mr-16': index == offers.length - 1 }" />
           </template>
         </div>
@@ -40,16 +40,6 @@ const scrollNext = () => {
 const scrollPrev = () => {
   emblaApi.value?.scrollPrev()
 }
-/* const nextBtnVisibility = ref(true);
-const prevBtnVisibility = ref(true);
-function showNextBtn(emblaApi: EmblaCarouselType): void {
-  const slides = emblaApi.slidesInView()
-  console.log("🚀 ~ showNextBtn ~ slides:", slides)
-  nextBtnVisibility.value = !slides.includes(offers.value.length - 1)
-}
 
-onMounted(() => {
-  if (emblaApi.value) emblaApi.value.on('slidesInView', showNextBtn)
-}) */
 
 </script>

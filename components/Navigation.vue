@@ -47,7 +47,7 @@
 <script setup lang="ts">
 import { useRoute, useNuxtApp } from '#app';
 
-const { $viewport } = useNuxtApp()
+const viewport = useViewport()
 const route = useRoute();
 
 
@@ -65,7 +65,7 @@ const menuContainer = ref(null);
 const visibleArray = ref([]);
 const asideArray = ref([]);
 
-watch($viewport.breakpoint, (newBreakpoint) => {
+watch(viewport.breakpoint, (newBreakpoint) => {
   let pointOfSplit
   if (['desktopWide', 'desktopMedium', 'desktop', 'tablet'].includes(newBreakpoint)) {
     pointOfSplit = sections.value.length

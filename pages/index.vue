@@ -2,7 +2,7 @@
   <main class="bg-gray-900 content-grid text-accent">
     <Navigation :sections="sections" />
     <Witamy class="full-width" id="witamy" v-bind="witamy.fields" link="oferta" />
-    <Offer :offers="offers" id="oferta" />
+    <OfferCarousel :offers="offers" id="oferta" />
     <Contact id="kontakt" class="full-width">
       <ContentRenderer class="flex flex-col gap-4" :value="contact" />
     </Contact>
