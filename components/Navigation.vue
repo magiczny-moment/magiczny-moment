@@ -8,8 +8,8 @@
       <li class="inline-block" v-for="(section, index) in visibleArray" :key="section.id"
         :class="{ 'md:mr-auto': index === 0 }">
         <a :href="'#' + section.id" class="link" :class="{ 'link-active': isActive(section.id) }">
-          <span v-if="index === 0" class="md:text-4xl md:font-[eternals-universe]">
-            <span class="hidden md:inline-block">
+          <span v-if="index === 0">
+            <span class="hidden md:inline-block font-[eternals-universe] text-4xl">
               Magiczny Moment
             </span>
             <span class="inline-block md:hidden">Początek</span>
