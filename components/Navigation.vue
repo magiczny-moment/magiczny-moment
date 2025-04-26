@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="fixed bottom-0 z-50 w-full px-4 h-[--menu-height] bg-gray-900 
+    class="fixed bottom-0 z-50 w-full h-[--menu-height] bg-gray-900 
     bg-gradient-to-l md:bg-transparent md:bg-gradient-to-b from-gray-900/80 to-transparent md:top-0 backdrop-blur-md md:backdrop-blur-0  md:shadow-none shadow-[0px_0px_10px_rgba(0,0,0,0.5)] content-grid">
     <ul
       class="flex items-center justify-center w-full gap-8 p-4 overflow-x-auto truncate md:p-0 md:justify-start whitespace-nowrap hide-scroll-bar"
