@@ -54,7 +54,12 @@ const route = useRoute();
 const props = defineProps({
   sections: {
     type: Array,
-    required: true
+    default: () =>[
+      { id: 'witamy', title: 'Witamy' },
+      { id: 'oferta', title: 'Oferta' },
+     /*  { id: 'media', title: 'Media społecznościowe' }, */
+      { id: 'kontakt', title: 'Kontakt' },
+    ]
   }
 });
 const { sections } = toRefs(props);
