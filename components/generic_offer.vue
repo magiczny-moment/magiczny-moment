@@ -1,12 +1,7 @@
 <template>
   <section class="relative overflow-y-auto bg-gray-800 bg-cover isolate h-section md:!h-screen"
     :class="{ '!h-screen': isAnimation }">
-    <div v-if="isAnimation" class="absolute top-0 left-0 flex h-full overflow-x-auto" style="display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;">
-      <img :src="image" class="z-10 object-cover object-left w-auto h-full" :class="{ '': isAnimation }" />
-    </div>
-    <img v-else :src="image" class="absolute top-0 left-0 z-10 object-cover object-left w-full h-full full-width" />
+    <img :src="image" class="absolute top-0 left-0 z-10 object-cover object-left w-full h-full full-width" />
 
     <div class="z-20 flex flex-row items-center justify-center h-full p-4 text-center text-white md:p-0 "
       :class="{ 'hidden': isAnimation }">
@@ -21,14 +16,7 @@
         <div class="flex flex-col items-end justify-end w-full gap-4 mt-6 md:items-center md:flex-row">
           <span class="text-xl">{{ price }}</span>
           <div class="inline-flex">
-            <Teleport to="#animation-close" :disabled="!isAnimation">
-              <button
-                class="flex items-center justify-center ml-4 font-semibold text-white rounded-full size-14 bg-accent hover:bg-accent-600"
-                @click="$emit('preview-clicked')">
-                <Icon :name="!isAnimation ? 'icon-park-outline:preview-open' : 'icon-park-outline:preview-close-one'"
-                  class="inline-block text-xl size-6" />
-              </button>
-            </Teleport>
+            <button>Galeria</button>
             <a href="#oferta"
               class="px-6 py-3 ml-4 font-semibold text-white rounded-full h-14 bg-accent hover:bg-accent-600">
               Zamów

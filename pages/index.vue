@@ -18,7 +18,13 @@ const sections = ref([
 ])
 
 const { data: offers } = await useAsyncData('offers', async () => {
-  return await queryContent('offers').find()
+  const result = await queryContent('oferta').find();
+  return result.map((offer) => {
+    return {
+      ...offer.fields,
+      link: offer._path,
+    }
+  });
 })
 const { data: witamy } = await useAsyncData('witamy', async () => {
   return await queryContent().where({ title: { $contains: 'Witamy' } }).findOne();

@@ -13,9 +13,8 @@
 const route = useRoute()
 
 const { data: section } = await useAsyncData('offerpreview', async () => {
-  return await queryContent('offers').where({ '_stem': { $contains: route.params.id } }).findOne()
+  return await queryContent('oferta').where({ '_stem': { $contains: route.params.id } }).findOne()
 })
-console.log("🚀 ~ const{data:section}=awaituseAsyncData ~ section:", section)
 const menuSections = ref([
   { id: 'witamy', title: 'Witamy' },
   { id: 'oferta', title: 'Oferta' },

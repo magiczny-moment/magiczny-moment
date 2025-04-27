@@ -6,7 +6,7 @@
         <div
           class="grid auto-cols-[70%] md:auto-cols-[calc(50%-2rem)] h-[calc(var(--section-height)*0.7)] grid-flow-col gap-4 md:gap-16">
           <template v-for="(offer, index) in offers">
-            <Card :image="offer.fields.image" :title="offer.fields.title" :content="offer.fields.content"
+            <Card :image="offer.image" :title="offer.title" :content="offer.content" :link="offer.link"
               :class="{ 'mr-4 md:mr-16': index == offers.length - 1 }" />
           </template>
         </div>
