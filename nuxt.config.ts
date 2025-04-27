@@ -15,10 +15,28 @@ export default defineNuxtConfig({
   routeRules: {
     '/': { prerender: true }
   },
-  site: { 
-    url: 'https://mm-event.pl', 
-    name: 'Magiczny Moment Event' 
-  }, 
+  site: {
+    url: 'https://mm-event.pl', // Zmień na swoją domenę,
+    name: 'Magiczny Moment Event', 
+  },
+  sitemap: {
+    hostname: 'https://mm-event.pl', // Zmień na swoją domenę,
+    gzip: true, // Opcjonalnie włącz kompresję gzip
+    routes: async () => {
+      const { $content } = require('@nuxt/content') // Jeśli używasz @nuxt/content
+      const offers = await $content('oferta').fetch()
+    
+      // Generuj trasy dla ofert
+      const offersRoutes = offers.map(offer => `/oferta/${offer.slug}`)
+
+      return [
+        '/', // Dodaj statyczne trasy
+        '/#oferta',
+        '/#kontakt',
+        ...offersRoutes,
+      ]
+    }
+  },
   icon: {
     provider: 'iconify',
     serverBundle: false,
