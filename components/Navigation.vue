@@ -7,7 +7,7 @@
       ref="menuContainer">
       <li class="inline-block" v-for="(section, index) in visibleArray" :key="section.id"
         :class="{ 'md:mr-auto': index === 0 }">
-        <a :href="'#' + section.id" class="link" :class="{ 'link-active': isActive(section.id) }">
+        <a :href="'/#' + section.id" class="link" :class="{ 'link-active': isActive(section.id) }">
           <span v-if="index === 0">
             <span class="hidden md:inline-block font-[eternals-universe] text-4xl">
               Magiczny Moment
@@ -32,7 +32,7 @@
       <div v-if="drawerVisiblity"
         class="fixed z-[51] gap-8 right-0 top-0 flex flex-col justify-end flex-wrap whitespace-pre-line w-[300px] h-screen bg-gradient-to-b bg-gradient-to-b from-gray-900/80 to-gray-600/80 backdrop-blur-md p-8 shadow-drawer">
         <div v-for="(element) in asideArray" :key="element.id">
-          <a :href="'#' + element.id" class="self-start link" :class="{ 'link-active': isActive(element.id) }"
+          <a :href="'/#' + element.id" class="self-start link" :class="{ 'link-active': isActive(element.id) }"
             @click="drawerVisiblity = !drawerVisiblity">
             {{ element.title }}
           </a>
