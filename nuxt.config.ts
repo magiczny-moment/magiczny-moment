@@ -2,8 +2,8 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   modules: [
-    '@nuxtjs/sitemap',
     '@nuxt/content',
+    '@nuxtjs/sitemap',
     '@nuxtjs/tailwindcss',
     '@nuxt/fonts',
     'nuxt-viewport',
@@ -15,27 +15,13 @@ export default defineNuxtConfig({
   routeRules: {
     '/': { prerender: true }
   },
-  site: {
-    url: 'https://mm-event.pl', // Zmień na swoją domenę,
-    name: 'Magiczny Moment Event', 
-  },
+ // Koniecznie ustaw hostname dla poprawnych URL-i w sitemapie
   sitemap: {
-    hostname: 'https://mm-event.pl', // Zmień na swoją domenę,
-    gzip: true, // Opcjonalnie włącz kompresję gzip
-    routes: async () => {
-      const { $content } = require('@nuxt/content') // Jeśli używasz @nuxt/content
-      const offers = await $content('oferta').fetch()
-    
-      // Generuj trasy dla ofert
-      const offersRoutes = offers.map(offer => `/oferta/${offer.slug}`)
-
-      return [
-        '/', // Dodaj statyczne trasy
-        '/#oferta',
-        '/#kontakt',
-        ...offersRoutes,
-      ]
-    }
+  hostname: 'https://mm-event.pl',
+  gzip: true,
+  sources: [
+    '/api/sitemap/oferta' // Zakładając, że ten endpoint zwraca JSON w odpowiednim formacie
+  ]
   },
   icon: {
     provider: 'iconify',
@@ -59,5 +45,5 @@ export default defineNuxtConfig({
       '2xl': 1536
     }
   },
-  compatibilityDate: '2024-11-10'
+  compatibilityDate: '2024-11-10',
 })
