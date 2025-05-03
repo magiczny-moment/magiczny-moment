@@ -1,3 +1,7 @@
+@tailwind utilities;
+@tailwind components;
+@tailwind base;
+
 html {
   scroll-behavior: smooth;
 }
@@ -47,4 +51,22 @@ html {
   height: 100%;
   min-height: calc(100vh - var(--menu-height));
   min-height: var(--section-height);
+}
+
+
+@layer utilities {
+    @variants responsive {
+        .text-shadow {
+          text-shadow: 0px 0px 4px black;
+        }
+        .text-shadow-md {
+          text-shadow: 0px 0px 8px black;
+        }
+        .text-shadow-lg {
+          text-shadow: 0px 0px 30px black;
+        }
+        .text-shadow-none {
+          text-shadow: none;
+        }
+    } 
 }

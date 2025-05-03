@@ -10,7 +10,7 @@
         <a :href="'/#' + section.id" class="link" :class="{ 'link-active': isActive(section.id) }">
           <span v-if="index === 0">
             <span class="hidden md:inline-block font-[eternals-universe] text-4xl">
-              Magiczny Moment
+              Magiczny Moment Event
             </span>
             <span class="inline-block md:hidden">Początek</span>
           </span>

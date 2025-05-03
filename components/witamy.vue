@@ -9,17 +9,17 @@
 
 
     <!-- Centered Text Content -->
-    <div class="relative z-10 flex items-center justify-center h-full px-4 text-center md:pb-0 ">
-      <div>
-        <NuxtImg src="/LOGO.png" alt="Logo" class="size-[400px] mx-auto mb-4 object-contain" />
-        <div v-if="content?.length > 0" class="max-w-xl mx-auto mb-8 text-lg text-white md:text-xl">
-          {{ content }}
-        </div>
-        <NuxtLink :to="`#${link}`"
-          class="px-6 py-3 font-semibold text-gray-900 rounded-full bg-accent hover:bg-accent-600">
-          Zobacz więcej
-        </NuxtLink>
-      </div>
+    <div class="relative z-10 flex flex-col items-center justify-center h-full px-4 md:pb-0 text-shadow-lg">
+      <!-- <NuxtImg src=" /LOGO.png" alt="Logo" class="size-[400px] mx-auto mb-4 object-contain" /> -->
+      <h1 v-if="h1?.length > 0"
+        class="text-center text-6xl md:text-[100px] leading-[1em] text-accent font-[eternals-universe]">
+        {{ h1 }}
+      </h1>
+      <div class="text-center text-2xl md:text-4xl text-accent font-[eternals-universe]">{{ sub }}</div>
+      <NuxtLink :to="`#${link}`"
+        class="self-center px-6 py-3 mt-24 font-semibold text-gray-900 rounded-full shadow-[0px_0px_20px_rgba(0,0,0,0.7)] bg-accent hover:bg-accent-600">
+        Zobacz więcej
+      </NuxtLink>
     </div>
   </figure>
 </template>
@@ -27,7 +27,8 @@
 <script setup lang="ts">
 defineProps({
   image: String,
-  content: String,
+  h1: String,
+  sub: String,
   link: String
 })
 </script>
