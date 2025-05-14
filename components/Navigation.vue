@@ -7,7 +7,8 @@
       ref="menuContainer">
       <li class="inline-block" v-for="(section, index) in visibleArray" :key="section.id"
         :class="{ 'md:mr-auto': index === 0 }">
-        <a :href="'/#' + section.id" class="link" :class="{ 'link-active': isActive(section.id) }">
+        <a :href="'/#' + section.id" class="link" :class="{ 'link-active': isActive(section.id) }"
+          @click.prevent="scrollToElement(section.id)">
           <span v-if="index === 0">
             <span class="hidden md:inline-block font-[eternals-universe] text-4xl">
               Magiczny Moment Event
@@ -33,7 +34,7 @@
         class="fixed z-[51] gap-8 right-0 top-0 flex flex-col justify-end flex-wrap whitespace-pre-line w-[300px] h-screen bg-gradient-to-b bg-gradient-to-b from-gray-900/80 to-gray-600/80 backdrop-blur-md p-8 shadow-drawer">
         <div v-for="(element) in asideArray" :key="element.id">
           <a :href="'/#' + element.id" class="self-start link" :class="{ 'link-active': isActive(element.id) }"
-            @click="drawerVisiblity = !drawerVisiblity">
+            @click.prevent="() => { scrollToElement(element.id); drawerVisiblity = !drawerVisiblity }">
             {{ element.title }}
           </a>
         </div>
@@ -49,15 +50,15 @@ import { useRoute, useNuxtApp } from '#app';
 
 const viewport = useViewport()
 const route = useRoute();
-
+const router = useRouter()
 
 const props = defineProps({
   sections: {
     type: Array,
-    default: () =>[
+    default: () => [
       { id: 'witamy', title: 'Witamy' },
       { id: 'oferta', title: 'Oferta' },
-     /*  { id: 'media', title: 'Media społecznościowe' }, */
+      /*  { id: 'media', title: 'Media społecznościowe' }, */
       { id: 'kontakt', title: 'Kontakt' },
     ]
   }
@@ -94,6 +95,13 @@ const isActive = (section) => {
   return route.hash === `#${section}`
 }
 
+const scrollToElement = (id) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+    history.replaceState(null, '', `#${id}`);
+  }
+}
 </script>
 
 <style scoped>
