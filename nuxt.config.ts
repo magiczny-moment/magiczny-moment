@@ -15,7 +15,8 @@ export default defineNuxtConfig({
   routeRules: {
     '/': { prerender: true }
   },
- // Koniecznie ustaw hostname dla poprawnych URL-i w sitemapie
+  // Koniecznie ustaw hostname dla poprawnych URL-i w sitemapie
+  site: { url: 'https://mm-event.pl' },
   sitemap: {
   hostname: 'https://mm-event.pl',
   gzip: true,

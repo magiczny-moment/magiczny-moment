@@ -1,7 +1,7 @@
 <template>
   <main class="content-grid">
     <Navigation />
-    <GenericOffer class="full-width" v-bind="section.fields" />
+    <GenericOffer class="full-width" v-bind="section?.fields" />
   </main>
 </template>
 
