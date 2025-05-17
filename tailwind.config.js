@@ -8,9 +8,11 @@ export default {
         custom: ['eternals-universe'],
       },
       textShadow: {
-        sm: '0 1px 2px var(--tw-shadow-color)',
-        DEFAULT: '0 2px 4px var(--tw-shadow-color)',
-        lg: '0 8px 16px var(--tw-shadow-color)',
+        'sm': '0 0px 2px black',
+        DEFAULT: '0px 0px 4px black',
+        'md': '0px 0px 8px` black',
+        'lg': '0px 0px 30px black',
+        'none': 'none'
       },
       colors: {
         'accent': {
@@ -26,7 +28,7 @@ export default {
           'from': { ['object-position']: '0% 0%' },
           'to': { ['object-position']: '100% 0%' },
         }
-      }
+      },
     },
   },
   plugins: [
